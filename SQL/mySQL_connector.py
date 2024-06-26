@@ -7,3 +7,7 @@ mydb = mysql.connector.connect(
 )
 
 print(mydb)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("CREATE DATABASE mydatabase")
