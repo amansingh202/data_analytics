@@ -10,4 +10,11 @@ print(mydb)
 
 mycursor = mydb.cursor()
 
-mycursor.execute("CREATE DATABASE mydatabase")
+#create a database
+#mycursor.execute("CREATE DATABASE mydatabase")
+
+#show all the databases
+mycursor.execute("SHOW DATABASES")
+
+for x in mycursor:
+    print(x)
