@@ -49,9 +49,10 @@ FROM layoffs_staging2
 GROUP BY company
 ORDER BY 2 DESC;
 
-#data exploration on MySQL
+#data exploration 
 SELECT company, AVG(percentage_laid_off) 
 FROM layoffs_staging2
 GROUP BY company
 ORDER BY 2 DESC;
+
 
