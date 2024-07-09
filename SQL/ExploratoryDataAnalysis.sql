@@ -49,10 +49,12 @@ FROM layoffs_staging2
 GROUP BY company
 ORDER BY 2 DESC;
 
-#data exploration 
-SELECT company, AVG(percentage_laid_off) 
+#laid off in month
+SELECT substr(`date`,6,2) AS `Month`, SUM(total_laid_off)
 FROM layoffs_staging2
-GROUP BY company
-ORDER BY 2 DESC;
+GROUP BY `Month`;
+
+
+
 
 
