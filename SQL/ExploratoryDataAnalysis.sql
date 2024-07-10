@@ -88,12 +88,29 @@ FROM layoffs_staging2
 GROUP BY company, YEAR(`date`)
 ORDER BY 3 DESC;
 
-WITH Company_year AS 
+WITH Company_year (company, years, total_laid_off) AS 
 (
 SELECT company, YEAR(`date`), SUM(total_laid_off) 
 FROM layoffs_staging2
 GROUP BY company, YEAR(`date`)
 )
+SELECT *, DENSE_RANK() OVER (PARTITION BY years ORDER BY total_laid_off DESC) AS ranking
+FROM Company_year
+WHERE years IS NOT NULL
+ORDER BY ranking ASC;
+
+#filter only top 5 rank
+WITH Company_year (company, years, total_laid_off) AS 
+(
+SELECT company, YEAR(`date`), SUM(total_laid_off) 
+FROM layoffs_staging2
+GROUP BY company, YEAR(`date`)
+), Company_year_rank AS (
+SELECT *, DENSE_RANK() OVER (PARTITION BY years ORDER BY total_laid_off DESC) AS ranking
+FROM Company_year
+WHERE years IS NOT NULL
+)
 SELECT *
-FROM Company_year;
+FROM Company_year_rank
+WHERE Ranking <= 5;
 
