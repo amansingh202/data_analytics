@@ -68,6 +68,32 @@ WHERE substr(`date`, 1 , 7) IS NOT NULL
 GROUP BY `Month`
 ORDER BY 2 ASC
 )
-SELECT `Month`, SUM(total_off) OVER(ORDER BY `Month`) AS rolling_total
+SELECT `Month`, total_off,
+SUM(total_off) OVER(ORDER BY `Month`) AS rolling_total
 FROM Rolling_total;
+
+SELECT company, SUM(total_laid_off) 
+FROM layoffs_staging2
+GROUP BY company
+ORDER BY 2 DESC;
+
+#laid off by year
+SELECT company, YEAR(`date`), SUM(total_laid_off) 
+FROM layoffs_staging2
+GROUP BY company, `date`
+ORDER BY company ASC;
+
+SELECT company, YEAR(`date`), SUM(total_laid_off) 
+FROM layoffs_staging2
+GROUP BY company, YEAR(`date`)
+ORDER BY 3 DESC;
+
+WITH Company_year AS 
+(
+SELECT company, YEAR(`date`), SUM(total_laid_off) 
+FROM layoffs_staging2
+GROUP BY company, YEAR(`date`)
+)
+SELECT *
+FROM Company_year;
 
