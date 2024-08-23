@@ -2092,14 +2092,13 @@ input, select, textarea {
 				white-space: nowrap;
 			}
 
-			/* .image.thumb:hover:after {
+			.image.thumb:hover:after {
 				opacity: 1.0;
 			}
-
+			
 			.image.thumb:hover:before {
-				background: url("images/overlay.png"), url("images/overlay.png");
 				opacity: 1.0;
-			} */
+			} 
 
 		.image img {
 			border-radius: 0.35em;
